@@ -1,0 +1,33 @@
+﻿<Window x:Class="WindowHistorial"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfRegistro"
+        mc:Ignorable="d"
+        Title="Productos" Height="400" Width="1000">
+    <Window.DataContext>
+        <local:ViewModelProducto/>
+    </Window.DataContext>
+    <Grid>
+        <StatusBar HorizontalAlignment="Center" Height="50" VerticalAlignment="Top" Width="1000"
+                   Background="#2E112D">
+            <TextBlock Name="Historial" Height="40" TextWrapping="Wrap"
+                       Foreground="White" FontFamily="Century Gothic Negrita" FontSize="30"
+                       HorizontalAlignment="Center" TextAlignment="Center" 
+                       Text="Historial" Width="1000"/>
+        </StatusBar>
+        <StackPanel HorizontalAlignment="Center" Width="900" Margin="10,60,10,52">
+            <DataGrid Height="350" HorizontalAlignment="Center" 
+                      AutoGenerateColumns="False" 
+                      ItemsSource="{Binding MeViewModelProducto.ObservableHistorial}" VerticalAlignment="Center"  Width="900">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fecha" Width="220" Binding="{Binding fecha}"/>
+                    <DataGridTextColumn Header="Codigo" Width="200" Binding="{Binding codigo}"/>
+                    <DataGridTextColumn Header="Descripcion" Width="320" Binding="{Binding descripcion}"/>
+                    <DataGridTextColumn Header="Stock" Width="50" Binding="{Binding stockNuevo}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>

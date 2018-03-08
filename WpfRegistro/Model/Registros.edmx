@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RegistrosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombreCategoria" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Historial">
+          <Key>
+            <PropertyRef Name="idHistorial" />
+          </Key>
+          <Property Name="idHistorial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="stockNuevo" Type="int" Nullable="false" />
+          <Property Name="precio" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="idCategoria" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="text" Nullable="false" />
+          <Property Name="precio" Type="float" Nullable="false" />
+          <Property Name="stock" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salida">
+          <Key>
+            <PropertyRef Name="idSalida" />
+          </Key>
+          <Property Name="idSalida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaSalida" Type="date" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="cantidadSalida" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Registros.dbo.hv' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="hv">
+          <Key>
+            <PropertyRef Name="fecha" />
+            <PropertyRef Name="codigo" />
+            <PropertyRef Name="descripcion" />
+            <PropertyRef Name="stockNuevo" />
+            <PropertyRef Name="stock" />
+          </Key>
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="descripcion" Type="text" Nullable="false" />
+          <Property Name="stockNuevo" Type="int" Nullable="false" />
+          <Property Name="stock" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Registros.dbo.p_Producto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="p_Producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+            <PropertyRef Name="codigo" />
+            <PropertyRef Name="idCategoria" />
+            <PropertyRef Name="nombreCategoria" />
+            <PropertyRef Name="descripcion" />
+            <PropertyRef Name="precio" />
+            <PropertyRef Name="stock" />
+            <PropertyRef Name="totales" />
+          </Key>
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="idCategoria" Type="int" Nullable="false" />
+          <Property Name="nombreCategoria" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="descripcion" Type="text" Nullable="false" />
+          <Property Name="precio" Type="float" Nullable="false" />
+          <Property Name="stock" Type="int" Nullable="false" />
+          <Property Name="totales" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Registros.dbo.vs_salida' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="vs_salida">
+          <Key>
+            <PropertyRef Name="idSalida" />
+            <PropertyRef Name="fechaSalida" />
+            <PropertyRef Name="codigo" />
+            <PropertyRef Name="nombreCategoria" />
+            <PropertyRef Name="precio" />
+            <PropertyRef Name="stock" />
+            <PropertyRef Name="cantidadSalida" />
+          </Key>
+          <Property Name="idSalida" Type="int" Nullable="false" />
+          <Property Name="fechaSalida" Type="date" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombreCategoria" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="precio" Type="float" Nullable="false" />
+          <Property Name="stock" Type="int" Nullable="false" />
+          <Property Name="cantidadSalida" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Producto__idCate__762C88DA">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Salida__idProduc__7908F585">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Salida" Type="Self.Salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="Salida">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RegistrosModelStoreContainer">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Historial" EntityType="Self.Historial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Salida" EntityType="Self.Salida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hv" EntityType="Self.hv" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [hv].[fecha] AS [fecha], 
+    [hv].[codigo] AS [codigo], 
+    [hv].[descripcion] AS [descripcion], 
+    [hv].[stockNuevo] AS [stockNuevo], 
+    [hv].[stock] AS [stock]
+    FROM [dbo].[hv] AS [hv]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="p_Producto" EntityType="Self.p_Producto" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [p_Producto].[idProducto] AS [idProducto], 
+    [p_Producto].[codigo] AS [codigo], 
+    [p_Producto].[idCategoria] AS [idCategoria], 
+    [p_Producto].[nombreCategoria] AS [nombreCategoria], 
+    [p_Producto].[descripcion] AS [descripcion], 
+    [p_Producto].[precio] AS [precio], 
+    [p_Producto].[stock] AS [stock], 
+    [p_Producto].[totales] AS [totales]
+    FROM [dbo].[p_Producto] AS [p_Producto]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vs_salida" EntityType="Self.vs_salida" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vs_salida].[idSalida] AS [idSalida], 
+    [vs_salida].[fechaSalida] AS [fechaSalida], 
+    [vs_salida].[codigo] AS [codigo], 
+    [vs_salida].[nombreCategoria] AS [nombreCategoria], 
+    [vs_salida].[precio] AS [precio], 
+    [vs_salida].[stock] AS [stock], 
+    [vs_salida].[cantidadSalida] AS [cantidadSalida]
+    FROM [dbo].[vs_salida] AS [vs_salida]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Producto__idCate__762C88DA" Association="Self.FK__Producto__idCate__762C88DA">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Salida__idProduc__7908F585" Association="Self.FK__Salida__idProduc__7908F585">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Salida" EntitySet="Salida" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RegistrosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreCategoria" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Producto__idCate__02FC7413" FromRole="Categoria" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCategoria" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="precio" Type="Double" Nullable="false" />
+          <Property Name="stock" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK__Producto__idCate__02FC7413" FromRole="Producto" ToRole="Categoria" />
+          <NavigationProperty Name="Salida" Relationship="RegistrosModel.FK__Salida__idProduc__160F4887" FromRole="Producto" ToRole="Salida" />
+        </EntityType>
+        <Association Name="FK__Producto__idCate__02FC7413">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RegistrosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <AssociationSet Name="FK__Producto__idCate__02FC7413" Association="Self.FK__Producto__idCate__02FC7413">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <FunctionImport Name="sp_insertProducto">
+            <Parameter Name="codigo" Mode="In" Type="String" />
+            <Parameter Name="idCategoria" Mode="In" Type="Int32" />
+            <Parameter Name="nombreCategoria" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="precio" Mode="In" Type="Double" />
+            <Parameter Name="stock" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Salida" EntityType="RegistrosModel.Salida" />
+          <AssociationSet Name="FK__Salida__idProduc__160F4887" Association="RegistrosModel.FK__Salida__idProduc__160F4887">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Salida" EntitySet="Salida" />
+          </AssociationSet>
+          <EntitySet Name="p_Producto" EntityType="RegistrosModel.p_Producto" />
+          <FunctionImport Name="sp_salidas" ReturnType="Collection(RegistrosModel.sp_salidas_Result)">
+            <Parameter Name="idSalida" Mode="In" Type="Int32" />
+            <Parameter Name="fechaSalida" Mode="In" Type="DateTime" />
+            <Parameter Name="idProducto" Mode="In" Type="Int32" />
+            <Parameter Name="cantidadSalida" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Historial" EntityType="RegistrosModel.Historial" />
+          <EntitySet Name="hv" EntityType="RegistrosModel.hv" />
+          <EntitySet Name="vs_salida" EntityType="RegistrosModel.vs_salida" />
+        </EntityContainer>
+        <EntityType Name="Salida">
+          <Key>
+            <PropertyRef Name="idSalida" />
+          </Key>
+          <Property Name="idSalida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaSalida" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="cantidadSalida" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="RegistrosModel.FK__Salida__idProduc__160F4887" FromRole="Salida" ToRole="Producto" />
+        </EntityType>
+        <Association Name="FK__Salida__idProduc__160F4887">
+          <End Type="RegistrosModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="RegistrosModel.Salida" Role="Salida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="Salida">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="p_Producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+            <PropertyRef Name="codigo" />
+            <PropertyRef Name="idCategoria" />
+            <PropertyRef Name="nombreCategoria" />
+            <PropertyRef Name="descripcion" />
+            <PropertyRef Name="precio" />
+            <PropertyRef Name="stock" />
+            <PropertyRef Name="totales" />
+          </Key>
+          <Property Name="idProducto" Nullable="false" Type="Int32" />
+          <Property Name="codigo" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="idCategoria" Nullable="false" Type="Int32" />
+          <Property Name="nombreCategoria" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="descripcion" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="precio" Nullable="false" Type="Double" />
+          <Property Name="stock" Nullable="false" Type="Int32" />
+          <Property Name="totales" Nullable="false" Type="Double" />
+        </EntityType>
+        <ComplexType Name="sp_salidas_Result">
+          <Property Type="Int32" Name="idProducto" Nullable="false" />
+          <Property Type="String" Name="codigo" Nullable="false" MaxLength="10" />
+          <Property Type="Int32" Name="idCategoria" Nullable="false" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="Max" />
+          <Property Type="Double" Name="precio" Nullable="false" />
+          <Property Type="Int32" Name="stock" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Historial">
+          <Key>
+            <PropertyRef Name="idHistorial" />
+          </Key>
+          <Property Name="idHistorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="stockNuevo" Type="Int32" Nullable="false" />
+          <Property Name="precio" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="hv">
+          <Key>
+            <PropertyRef Name="fecha" />
+            <PropertyRef Name="codigo" />
+            <PropertyRef Name="stockNuevo" />
+            <PropertyRef Name="descripcion" />
+            <PropertyRef Name="stock" />
+          </Key>
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="stockNuevo" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="stock" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vs_salida">
+          <Key>
+            <PropertyRef Name="fechaSalida" />
+            <PropertyRef Name="codigo" />
+            <PropertyRef Name="nombreCategoria" />
+            <PropertyRef Name="precio" />
+            <PropertyRef Name="stock" />
+            <PropertyRef Name="cantidadSalida" />
+            <PropertyRef Name="idSalida" />
+          </Key>
+          <Property Name="fechaSalida" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombreCategoria" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Double" Nullable="false" />
+          <Property Name="stock" Type="Int32" Nullable="false" />
+          <Property Name="cantidadSalida" Type="Int32" Nullable="false" />
+          <Property Name="idSalida" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RegistrosModelStoreContainer" CdmEntityContainer="RegistrosEntities">
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="RegistrosModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="nombreCategoria" ColumnName="nombreCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="RegistrosModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Salida">
+            <EntityTypeMapping TypeName="RegistrosModel.Salida">
+              <MappingFragment StoreEntitySet="Salida">
+                <ScalarProperty Name="cantidadSalida" ColumnName="cantidadSalida" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="fechaSalida" ColumnName="fechaSalida" />
+                <ScalarProperty Name="idSalida" ColumnName="idSalida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="p_Producto">
+            <EntityTypeMapping TypeName="RegistrosModel.p_Producto">
+              <MappingFragment StoreEntitySet="p_Producto">
+                <ScalarProperty Name="totales" ColumnName="totales" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="nombreCategoria" ColumnName="nombreCategoria" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Historial">
+            <EntityTypeMapping TypeName="RegistrosModel.Historial">
+              <MappingFragment StoreEntitySet="Historial">
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="stockNuevo" ColumnName="stockNuevo" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="idHistorial" ColumnName="idHistorial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hv">
+            <EntityTypeMapping TypeName="RegistrosModel.hv">
+              <MappingFragment StoreEntitySet="hv">
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="stockNuevo" ColumnName="stockNuevo" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vs_salida">
+            <EntityTypeMapping TypeName="RegistrosModel.vs_salida">
+              <MappingFragment StoreEntitySet="vs_salida">
+                <ScalarProperty Name="idSalida" ColumnName="idSalida" />
+                <ScalarProperty Name="cantidadSalida" ColumnName="cantidadSalida" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="nombreCategoria" ColumnName="nombreCategoria" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="fechaSalida" ColumnName="fechaSalida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

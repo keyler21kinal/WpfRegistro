@@ -1,0 +1,183 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+WpfRegistro
+</name>
+</assembly>
+<members>
+<member name="T:WpfRegistro.My.MyWpfExtension">
+ <summary>
+ Módulo utilizado para definir las propiedades disponibles en el espacio de nombres My de WPF
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="P:WpfRegistro.My.MyWpfExtension.Application">
+ <summary>
+ Devuelve el objeto de aplicación de la aplicación en ejecución
+ </summary>
+</member>
+<member name="P:WpfRegistro.My.MyWpfExtension.Computer">
+ <summary>
+ Devuelve información sobre el equipo host.
+ </summary>
+</member>
+<member name="P:WpfRegistro.My.MyWpfExtension.User">
+ <summary>
+ Devuelve información sobre el usuario actual.  Si desea ejecutar la aplicación con las credenciales 
+ del usuario de Windows actual, llame a My.User.InitializeWithWindowsUser().
+ </summary>
+</member>
+<member name="P:WpfRegistro.My.MyWpfExtension.Log">
+ <summary>
+ Devuelve el registro de la aplicación. El archivo de configuración de la aplicación puede configurar los agentes de escucha.
+ </summary>
+</member>
+<member name="P:WpfRegistro.My.MyWpfExtension.Windows">
+ <summary>
+ Devuelve la colección de Windows definida en el proyecto.
+ </summary>
+</member>
+<member name="T:WpfRegistro.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:WpfRegistro.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:WpfRegistro.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:WpfRegistro.WindowCategoria">
+<summary>
+WindowCategoria
+</summary>
+</member>
+<member name="M:WpfRegistro.WindowCategoria.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:WpfRegistro.WindowEntrada">
+<summary>
+WindowEntrada
+</summary>
+</member>
+<member name="M:WpfRegistro.WindowEntrada.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:WpfRegistro.WindowHistorial">
+<summary>
+WindowHistorial
+</summary>
+</member>
+<member name="M:WpfRegistro.WindowHistorial.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:WpfRegistro.WindowProducto">
+<summary>
+WindowProducto
+</summary>
+</member>
+<member name="M:WpfRegistro.WindowProducto.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:WpfRegistro.WindowProductos">
+<summary>
+WindowProductos
+</summary>
+</member>
+<member name="M:WpfRegistro.WindowProductos.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:WpfRegistro.WindowSalida">
+<summary>
+WindowSalida
+</summary>
+</member>
+<member name="M:WpfRegistro.WindowSalida.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:WpfRegistro.WindowSalidas">
+<summary>
+WindowSalidas
+</summary>
+</member>
+<member name="M:WpfRegistro.WindowSalidas.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:WpfRegistro.Application">
+<summary>
+Application
+</summary>
+</member>
+<member name="M:WpfRegistro.Application.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="M:WpfRegistro.Application.Main">
+<summary>
+Application Entry Point.
+</summary>
+</member>
+<member name="T:WpfRegistro.MainWindow">
+<summary>
+MainWindow
+</summary>
+</member>
+<member name="M:WpfRegistro.MainWindow.InitializeComponent">
+<summary>
+InitializeComponent
+</summary>
+</member>
+<member name="T:WpfRegistro.XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+<summary>
+GeneratedInternalTypeHelper
+</summary>
+</member>
+<member name="M:WpfRegistro.XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+<summary>
+CreateInstance
+</summary>
+</member>
+<member name="M:WpfRegistro.XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+<summary>
+GetPropertyValue
+</summary>
+</member>
+<member name="M:WpfRegistro.XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+<summary>
+SetPropertyValue
+</summary>
+</member>
+<member name="M:WpfRegistro.XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+<summary>
+CreateDelegate
+</summary>
+</member>
+<member name="M:WpfRegistro.XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+<summary>
+AddEventHandler
+</summary>
+</member>
+</members>
+</doc>

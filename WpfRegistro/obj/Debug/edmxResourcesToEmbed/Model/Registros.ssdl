@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RegistrosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="idCategoria" />
+    </Key>
+    <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreCategoria" Type="varchar" MaxLength="80" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Historial">
+    <Key>
+      <PropertyRef Name="idHistorial" />
+    </Key>
+    <Property Name="idHistorial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fecha" Type="datetime" Nullable="false" />
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="stockNuevo" Type="int" Nullable="false" />
+    <Property Name="precio" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idCategoria" Type="int" Nullable="false" />
+    <Property Name="descripcion" Type="text" Nullable="false" />
+    <Property Name="precio" Type="float" Nullable="false" />
+    <Property Name="stock" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Salida">
+    <Key>
+      <PropertyRef Name="idSalida" />
+    </Key>
+    <Property Name="idSalida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fechaSalida" Type="date" Nullable="false" />
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="cantidadSalida" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Registros.dbo.hv' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="hv">
+    <Key>
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="descripcion" />
+      <PropertyRef Name="stockNuevo" />
+      <PropertyRef Name="stock" />
+    </Key>
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="descripcion" Type="text" Nullable="false" />
+    <Property Name="stockNuevo" Type="int" Nullable="false" />
+    <Property Name="stock" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Registros.dbo.p_Producto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="p_Producto">
+    <Key>
+      <PropertyRef Name="idProducto" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="idCategoria" />
+      <PropertyRef Name="nombreCategoria" />
+      <PropertyRef Name="descripcion" />
+      <PropertyRef Name="precio" />
+      <PropertyRef Name="stock" />
+      <PropertyRef Name="totales" />
+    </Key>
+    <Property Name="idProducto" Type="int" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="idCategoria" Type="int" Nullable="false" />
+    <Property Name="nombreCategoria" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="descripcion" Type="text" Nullable="false" />
+    <Property Name="precio" Type="float" Nullable="false" />
+    <Property Name="stock" Type="int" Nullable="false" />
+    <Property Name="totales" Type="float" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'Registros.dbo.vs_salida' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="vs_salida">
+    <Key>
+      <PropertyRef Name="idSalida" />
+      <PropertyRef Name="fechaSalida" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="nombreCategoria" />
+      <PropertyRef Name="precio" />
+      <PropertyRef Name="stock" />
+      <PropertyRef Name="cantidadSalida" />
+    </Key>
+    <Property Name="idSalida" Type="int" Nullable="false" />
+    <Property Name="fechaSalida" Type="date" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="nombreCategoria" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="precio" Type="float" Nullable="false" />
+    <Property Name="stock" Type="int" Nullable="false" />
+    <Property Name="cantidadSalida" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Producto__idCate__762C88DA">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="idCategoria" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="idCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Salida__idProduc__7908F585">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="Salida" Type="Self.Salida" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="Salida">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RegistrosModelStoreContainer">
+    <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Historial" EntityType="Self.Historial" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Salida" EntityType="Self.Salida" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hv" EntityType="Self.hv" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [hv].[fecha] AS [fecha], 
+    [hv].[codigo] AS [codigo], 
+    [hv].[descripcion] AS [descripcion], 
+    [hv].[stockNuevo] AS [stockNuevo], 
+    [hv].[stock] AS [stock]
+    FROM [dbo].[hv] AS [hv]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="p_Producto" EntityType="Self.p_Producto" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [p_Producto].[idProducto] AS [idProducto], 
+    [p_Producto].[codigo] AS [codigo], 
+    [p_Producto].[idCategoria] AS [idCategoria], 
+    [p_Producto].[nombreCategoria] AS [nombreCategoria], 
+    [p_Producto].[descripcion] AS [descripcion], 
+    [p_Producto].[precio] AS [precio], 
+    [p_Producto].[stock] AS [stock], 
+    [p_Producto].[totales] AS [totales]
+    FROM [dbo].[p_Producto] AS [p_Producto]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="vs_salida" EntityType="Self.vs_salida" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vs_salida].[idSalida] AS [idSalida], 
+    [vs_salida].[fechaSalida] AS [fechaSalida], 
+    [vs_salida].[codigo] AS [codigo], 
+    [vs_salida].[nombreCategoria] AS [nombreCategoria], 
+    [vs_salida].[precio] AS [precio], 
+    [vs_salida].[stock] AS [stock], 
+    [vs_salida].[cantidadSalida] AS [cantidadSalida]
+    FROM [dbo].[vs_salida] AS [vs_salida]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Producto__idCate__762C88DA" Association="Self.FK__Producto__idCate__762C88DA">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Salida__idProduc__7908F585" Association="Self.FK__Salida__idProduc__7908F585">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Salida" EntitySet="Salida" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

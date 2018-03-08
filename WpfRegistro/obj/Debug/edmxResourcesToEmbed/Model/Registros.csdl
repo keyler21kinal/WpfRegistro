@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RegistrosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="idCategoria" />
+    </Key>
+    <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreCategoria" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK__Producto__idCate__02FC7413" FromRole="Categoria" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idCategoria" Type="Int32" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="precio" Type="Double" Nullable="false" />
+    <Property Name="stock" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Categoria" Relationship="Self.FK__Producto__idCate__02FC7413" FromRole="Producto" ToRole="Categoria" />
+    <NavigationProperty Name="Salida" Relationship="RegistrosModel.FK__Salida__idProduc__160F4887" FromRole="Producto" ToRole="Salida" />
+  </EntityType>
+  <Association Name="FK__Producto__idCate__02FC7413">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="idCategoria" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="idCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RegistrosEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" />
+    <AssociationSet Name="FK__Producto__idCate__02FC7413" Association="Self.FK__Producto__idCate__02FC7413">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <FunctionImport Name="sp_insertProducto">
+      <Parameter Name="codigo" Mode="In" Type="String" />
+      <Parameter Name="idCategoria" Mode="In" Type="Int32" />
+      <Parameter Name="nombreCategoria" Mode="In" Type="String" />
+      <Parameter Name="descripcion" Mode="In" Type="String" />
+      <Parameter Name="precio" Mode="In" Type="Double" />
+      <Parameter Name="stock" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Salida" EntityType="RegistrosModel.Salida" />
+    <AssociationSet Name="FK__Salida__idProduc__160F4887" Association="RegistrosModel.FK__Salida__idProduc__160F4887">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="Salida" EntitySet="Salida" />
+    </AssociationSet>
+    <EntitySet Name="p_Producto" EntityType="RegistrosModel.p_Producto" />
+    <FunctionImport Name="sp_salidas" ReturnType="Collection(RegistrosModel.sp_salidas_Result)">
+      <Parameter Name="idSalida" Mode="In" Type="Int32" />
+      <Parameter Name="fechaSalida" Mode="In" Type="DateTime" />
+      <Parameter Name="idProducto" Mode="In" Type="Int32" />
+      <Parameter Name="cantidadSalida" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Historial" EntityType="RegistrosModel.Historial" />
+    <EntitySet Name="hv" EntityType="RegistrosModel.hv" />
+    <EntitySet Name="vs_salida" EntityType="RegistrosModel.vs_salida" />
+  </EntityContainer>
+  <EntityType Name="Salida">
+    <Key>
+      <PropertyRef Name="idSalida" />
+    </Key>
+    <Property Name="idSalida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fechaSalida" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="idProducto" Type="Int32" Nullable="false" />
+    <Property Name="cantidadSalida" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="RegistrosModel.FK__Salida__idProduc__160F4887" FromRole="Salida" ToRole="Producto" />
+  </EntityType>
+  <Association Name="FK__Salida__idProduc__160F4887">
+    <End Type="RegistrosModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="RegistrosModel.Salida" Role="Salida" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="Salida">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="p_Producto">
+    <Key>
+      <PropertyRef Name="idProducto" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="idCategoria" />
+      <PropertyRef Name="nombreCategoria" />
+      <PropertyRef Name="descripcion" />
+      <PropertyRef Name="precio" />
+      <PropertyRef Name="stock" />
+      <PropertyRef Name="totales" />
+    </Key>
+    <Property Name="idProducto" Nullable="false" Type="Int32" />
+    <Property Name="codigo" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
+    <Property Name="idCategoria" Nullable="false" Type="Int32" />
+    <Property Name="nombreCategoria" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" Type="String" />
+    <Property Name="descripcion" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" Type="String" />
+    <Property Name="precio" Nullable="false" Type="Double" />
+    <Property Name="stock" Nullable="false" Type="Int32" />
+    <Property Name="totales" Nullable="false" Type="Double" />
+  </EntityType>
+  <ComplexType Name="sp_salidas_Result">
+    <Property Type="Int32" Name="idProducto" Nullable="false" />
+    <Property Type="String" Name="codigo" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="idCategoria" Nullable="false" />
+    <Property Type="String" Name="descripcion" Nullable="false" MaxLength="Max" />
+    <Property Type="Double" Name="precio" Nullable="false" />
+    <Property Type="Int32" Name="stock" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Historial">
+    <Key>
+      <PropertyRef Name="idHistorial" />
+    </Key>
+    <Property Name="idHistorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="idProducto" Type="Int32" Nullable="false" />
+    <Property Name="stockNuevo" Type="Int32" Nullable="false" />
+    <Property Name="precio" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityType Name="hv">
+    <Key>
+      <PropertyRef Name="fecha" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="stockNuevo" />
+      <PropertyRef Name="descripcion" />
+      <PropertyRef Name="stock" />
+    </Key>
+    <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="stockNuevo" Type="Int32" Nullable="false" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="stock" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="vs_salida">
+    <Key>
+      <PropertyRef Name="fechaSalida" />
+      <PropertyRef Name="codigo" />
+      <PropertyRef Name="nombreCategoria" />
+      <PropertyRef Name="precio" />
+      <PropertyRef Name="stock" />
+      <PropertyRef Name="cantidadSalida" />
+      <PropertyRef Name="idSalida" />
+    </Key>
+    <Property Name="fechaSalida" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="codigo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombreCategoria" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="precio" Type="Double" Nullable="false" />
+    <Property Name="stock" Type="Int32" Nullable="false" />
+    <Property Name="cantidadSalida" Type="Int32" Nullable="false" />
+    <Property Name="idSalida" Type="Int32" Nullable="false" />
+  </EntityType>
+</Schema>

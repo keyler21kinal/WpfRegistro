@@ -1,0 +1,38 @@
+﻿<Window x:Class="WindowCategoria"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfRegistro"
+        mc:Ignorable="d"
+        Title="Categoria" Height="165" Width="400" BorderBrush="#F25C05" BorderThickness="5">
+    <Window.DataContext>
+        <local:ViewModelCategoria/>
+    </Window.DataContext>
+    <Grid>
+        <StatusBar HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="392"
+                   Background="#402AFF" BorderBrush="#402AFF" BorderThickness="3">
+            <TextBlock Name="gestiónProducto" TextWrapping="Wrap"
+                       Foreground="White" FontFamily="Century Gothic Negrita" FontSize="15"
+                       HorizontalAlignment="Right" TextAlignment="Center" 
+                       Width="400"><Run Text="Agregar Categoria"/>
+            </TextBlock>
+        </StatusBar>
+        <TextBlock Name="tbNombre" HorizontalAlignment="Left" Height="25" 
+                       Margin="10,35,0,0" TextWrapping="Wrap" Text="Categoria" 
+                       VerticalAlignment="Top" Width="192"/>
+
+        <TextBox Name="nombre" HorizontalAlignment="Left" Height="41" 
+                     Margin="10,52,0,0" TextWrapping="Wrap" TextAlignment="Center" 
+                     Text="{Binding MeViewModelCategoria.NombreCategoriaView }" 
+                     VerticalContentAlignment="Center"
+                     VerticalAlignment="Top" Width="192"/>
+        <Button Name="button" HorizontalAlignment="Left"
+                    FontFamily="Century Gothic" Foreground="White" 
+                    Background="#402AFF" FontSize="14"
+                    CommandParameter="Agregar" Command="{Binding MeViewModelCategoria}"
+                    Margin="227,72,0,0" VerticalAlignment="Top" Width="145">
+            Agregar
+        </Button>
+    </Grid>
+</Window>
